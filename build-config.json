@@ -1,0 +1,6 @@
+{
+	"linux": {
+		"target": "AppImage"
+	},
+	"nodeVersion": "10.15.1"
+}

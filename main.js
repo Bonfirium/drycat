@@ -2,6 +2,8 @@ const { app, BrowserWindow } = require('electron')
 const { exec } = require('child_process');
 const windows = [];
 
+console.log(process.version);
+
 // FIXME: refactor parameters
 function createWindow (rendererPath, { x, y, width, height }) {
 	const window = new BrowserWindow({
