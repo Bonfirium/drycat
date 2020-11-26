@@ -7,7 +7,9 @@
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
-      "*": ["node_modules/*"]
+      "@utils": [
+        "src/utils/index"
+      ]
     }
   }
 }

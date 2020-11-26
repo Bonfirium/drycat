@@ -6,7 +6,7 @@ async function createWindow(htmlPath: string, { x, y, width, height }: Electron.
     x, y, width, height,
     fullscreen: true,
   });
-  window.webContents.openDevTools();
+  // window.webContents.openDevTools();
   await window.loadFile(htmlPath);
   return window;
 }
