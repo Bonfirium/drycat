@@ -9,7 +9,21 @@
     "paths": {
       "@utils": [
         "src/utils/index"
+      ],
+      "@modules/*": [
+        "src/modules/*"
+      ],
+      "@stores/*": [
+        "src/stores/*"
       ]
-    }
+    },
+    "plugins": [
+      {
+        "transform": "@zerollup/ts-transform-paths",
+        "exclude": [
+          "*"
+        ]
+      }
+    ]
   }
 }
