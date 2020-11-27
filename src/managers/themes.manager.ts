@@ -1,16 +1,12 @@
 import GlobalStore from "@stores/global.store";
-import TrayModule from "@modules/tray.module";
+import TrayModule from "@menus/tray.menu";
 import * as path from "path";
 import { promises as fs } from "fs";
-import { resolveThemePath } from "@utils";
+import { readJsonFromFile, resolveThemePath } from "@utils";
 
 // TODO: move to types
 interface ThemeConfig {
     name: string
-}
-
-interface ThemesManagerConfig {
-    choosed: string;
 }
 
  // TODO: implement custom errors
@@ -45,12 +41,11 @@ class ThemesManager {
 
     private async readThemeConfig(themePath: string): Promise<ThemeConfig> {
         const configPath = path.resolve(themePath, "config.json");
-        return JSON.parse(await fs.readFile(configPath, "utf8"));
+        return readJsonFromFile(configPath);
     }
 
     changeTheme(name: string) {
         this.saveChoosedTheme(name);
-        console.log(GlobalStore.store.path);
         TrayModule.handleThemeChange(name);
     }
 

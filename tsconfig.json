@@ -15,6 +15,12 @@
       ],
       "@stores/*": [
         "src/stores/*"
+      ],
+      "@menus/*": [
+        "src/menus/*"
+      ],
+      "@managers/*": [
+        "src/managers/*"
       ]
     },
     "plugins": [

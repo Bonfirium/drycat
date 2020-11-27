@@ -1,6 +1,7 @@
-import ThemesManager from "@modules/themes.manager";
-import IconsManager from "@modules/icons.manager";
-import { app, Tray, Menu, MenuItem } from "electron";
+import ThemesManager from "@managers/themes.manager";
+import IconsManager from "@managers/icons.manager";
+import LockerModule from "@modules/locker.module";
+import { Tray, Menu, MenuItem, app } from "electron";
 
 
 // TODO: implement errors catching
@@ -9,15 +10,27 @@ class TrayMenu {
     tray: Tray;
     trayMenu: Menu;
     themesMenu: Menu;
+    lockerActivator: MenuItem;
 
     activate() {
         const iconPath = IconsManager.tray.path;
         this.tray = new Tray(iconPath);
         this.trayMenu = new Menu();
+        this.trayMenu.append(this.createLockerActivator());
         this.trayMenu.append(this.createThemesMenu());
-        this.refreshMenu();
+        this.trayMenu.append(this.createExit());
+        this._refreshMenu();
     }
 
+    createLockerActivator() {
+        this.lockerActivator = new MenuItem({
+            label: "Lock",
+            click: () => LockerModule.activateLock(),
+            type: "checkbox",
+            checked: false,
+        });
+        return this.lockerActivator;
+    }
     // TODO: allow duplicated names, use path to iterate
     // TODO: add preview
     createThemesMenu() {
@@ -37,7 +50,15 @@ class TrayMenu {
         });
     }
 
-    refreshMenu() {
+    // TODO: refactor somehow
+    createExit() {
+        return new MenuItem({
+            label: "Exit",
+            click: () => app.exit(),
+        });
+    }
+
+    private _refreshMenu() {
         this.tray.setContextMenu(this.trayMenu);
     }
 
@@ -45,12 +66,14 @@ class TrayMenu {
         for (const item of this.themesMenu.items) {
             if (item.label !== name) continue;
             item.checked = true;
-            this.refreshMenu();
             break;
         }
+        this._refreshMenu();
     }
 
-    
+    handleLockerActivatorChange(status: boolean) {
+        this.lockerActivator.checked = status;
+    }
 
 }
 

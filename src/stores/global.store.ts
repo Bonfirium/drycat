@@ -4,6 +4,7 @@ interface IGlobalStore {
     themeChoosed: string;
 }
 
+// TODO: stores migrations
 // TODO: change app name to save into DryCat folder
 // TODO: use abstracts;
 // TODO: use KEY CONSTANTS

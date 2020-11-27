@@ -1,11 +1,11 @@
-export {}
+
 const bound = {
     height: window.innerHeight + 3,
     width: window.innerWidth + 3,
 };
 
 
-const canvas = <HTMLCanvasElement>document.getElementById('canvas');
+const canvas1 = <HTMLCanvasElement>document.getElementById('canvas');
 const img = <HTMLOrSVGImageElement>document.getElementById("cat");
 canvas.setAttribute("height", bound.height.toString());
 canvas.setAttribute("width", bound.width.toString());

@@ -1,6 +1,6 @@
 import { app } from "electron";
-import ThemesManager from "@modules/themes.manager"; // TODO: move to managers (or modules)
-import TrayModule from "@modules/tray.module";
+import ThemesManager from "@managers/themes.manager"; // TODO: move to managers (or modules)
+import TrayModule from "@menus/tray.menu";
 
 // TODO: do smth with async?
 app.on('ready', async () => {
@@ -15,5 +15,5 @@ app.on('ready', async () => {
 });
 
 app.on('window-all-closed', function () {
-  app.quit()
+  
 })
