@@ -14,7 +14,7 @@ export function resolveAssetPath(fileName: string) {
 }
 
 export function resolveThemePath(themeDirName: string) {
-	return path.resolve(".", "dist", "themes", themeDirName);
+	return path.resolve(".", "themes", themeDirName);
 }
 
 export async function readJsonFromFile<T>(filePath: string): Promise<T> {

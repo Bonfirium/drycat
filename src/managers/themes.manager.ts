@@ -24,7 +24,8 @@ class ThemesManager {
     // TODO: use promise.all for theme name fetching
     // TODO: duplicated theme name
     async parseFolders() { 
-        for await (const dirent of await fs.opendir("./dist/themes")) {
+        // TODO: move to settings
+        for await (const dirent of await fs.opendir("./themes")) {
             if (!dirent.isDirectory()) continue;
             const themePath = resolveThemePath(dirent.name);
             const config = await this.readThemeConfig(themePath);
