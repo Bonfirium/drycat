@@ -13,7 +13,3 @@ app.on('ready', async () => {
     process.exit(1);
   }
 });
-
-app.on('window-all-closed', function () {
-  
-})

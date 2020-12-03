@@ -1,7 +1,7 @@
 import ThemesManager from "@managers/themes.manager";
 import IconsManager from "@managers/icons.manager";
 import LockerModule from "@modules/locker.module";
-import { Tray, Menu, MenuItem, app } from "electron";
+import { Tray, Menu, MenuItem, app, globalShortcut } from "electron";
 
 
 // TODO: implement errors catching
@@ -20,6 +20,9 @@ class TrayMenu {
         this.trayMenu.append(this.createThemesMenu());
         this.trayMenu.append(this.createExit());
         this._refreshMenu();
+        globalShortcut.register('Alt+Ctrl+B', () => {
+            LockerModule.activateLock()
+        });
     }
 
     createLockerActivator() {
@@ -73,6 +76,7 @@ class TrayMenu {
 
     handleLockerActivatorChange(status: boolean) {
         this.lockerActivator.checked = status;
+        this._refreshMenu();
     }
 
 }
