@@ -8,6 +8,7 @@ class HotkeyManager {
 
     registerLockHotkey() {
         // TODO: fetch from store
+        // TODO: use constants
         this.register("ctrl+alt+B", () => LockModule.activateLock());
     }
 }

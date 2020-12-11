@@ -1,0 +1,15 @@
+.centerVertical {
+  margin: 0;
+  position: absolute;
+  top: 50vh;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+@mixin itemVertical {
+  margin: 0;
+  position: relative;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
