@@ -8,6 +8,4 @@ function ThemeSettings() {
   );
 }
 
-ThemeSettings.static = { name: 'Theme settings' };
-
 export default ThemeSettings;

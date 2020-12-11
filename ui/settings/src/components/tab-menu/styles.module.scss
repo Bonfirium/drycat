@@ -1,11 +1,6 @@
 .tabMenu {
-  width: 29vw;
-  height: 90vh;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #ccc;
-  border-radius: 16px;
-  margin-left: 1vw;
+  display: 'flex';
+  flex-grow: 1;
 
   .item {
     display: flex;
