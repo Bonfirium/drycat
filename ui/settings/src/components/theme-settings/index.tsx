@@ -1,9 +1,15 @@
-import React from 'react';
+import { Divider } from '@material-ui/core';
+import styles from './styles.module.scss';
+import RandomThemes from './random';
+
 
 function ThemeSettings() {
+  console.log(styles);
   return (
-    <div>
-      Theme Settings Tab
+    <div className={styles.themeSettings}>
+      <h1>Theme settings</h1>
+      <Divider/>
+      <RandomThemes/>
     </div>
   );
 }

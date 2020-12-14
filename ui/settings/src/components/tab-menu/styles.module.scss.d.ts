@@ -1,4 +1,4 @@
-export const active: string;
 export const item: string;
-export const label: string;
+export const itemContainer: string;
+export const panel: string;
 export const tabMenu: string;
