@@ -8,8 +8,6 @@ interface IProps {
 	items: { label: string, element: React.ReactElement }[];
 }
 
-console.log(styles);
-
 const TabMenu: React.FC<IProps> = ({ items, active }) => {
 	const [choosed, setChoosed] = useState(active);
 	// TODO: refactor

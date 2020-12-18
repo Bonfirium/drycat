@@ -1,15 +1,19 @@
-import { Divider } from '@material-ui/core';
-import styles from './styles.module.scss';
+import { Divider, Typography } from '@material-ui/core';
+import FolderPath from './folder';
 import RandomThemes from './random';
+import styles from './styles.module.scss';
 
 
 function ThemeSettings() {
   console.log(styles);
   return (
     <div className={styles.themeSettings}>
-      <h1>Theme settings</h1>
-      <Divider/>
-      <RandomThemes/>
+      <Typography variant="h4">
+          Theme Settings
+      </Typography>
+      <Divider />
+      <FolderPath />
+      <RandomThemes />
     </div>
   );
 }
