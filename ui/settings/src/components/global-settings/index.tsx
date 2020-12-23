@@ -9,3 +9,10 @@ function GlobalSettings() {
 }
 
 export default GlobalSettings;
+
+export const menu = {
+  label: "Global",
+  subitems: [
+    { label: "Shit", element: <GlobalSettings /> },
+  ],
+};

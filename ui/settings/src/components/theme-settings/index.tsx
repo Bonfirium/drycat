@@ -19,3 +19,11 @@ function ThemeSettings() {
 }
 
 export default ThemeSettings;
+
+export const menu = {
+  label: "Theme",
+  subitems: [
+    { label: 'Random', element: <RandomThemes /> },
+    { label: 'Folder path', element: <FolderPath /> },
+  ],
+};
