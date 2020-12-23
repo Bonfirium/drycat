@@ -1,6 +1,7 @@
 import ThemesManager from "@managers/themes.manager";
 import IconsManager from "@managers/icons.manager";
 import LockerModule from "@modules/locker.module";
+import SettingsUi from "@uis/settings.ui";
 import { Tray, Menu, MenuItem, app } from "electron";
 
 
@@ -18,6 +19,7 @@ class TrayMenu {
         this.trayMenu = new Menu();
         this.trayMenu.append(this.createLockerActivator());
         this.trayMenu.append(this.createThemesMenu());
+        this.trayMenu.append(this.createSettings());
         this.trayMenu.append(this.createExit());
         this._refreshMenu();
     }
@@ -47,6 +49,13 @@ class TrayMenu {
         return new MenuItem({
             label: "Choose a theme",
             submenu: this.themesMenu,
+        });
+    }
+
+    createSettings() {
+        return new MenuItem({
+            label: "Settings",
+            click: () => SettingsUi.show(),
         });
     }
 

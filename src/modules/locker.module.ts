@@ -1,4 +1,5 @@
 import ThemesManager from "@managers/themes.manager";
+import UIManager from "@managers/ui.manager";
 import TrayMenu from "@menus/tray.menu";
 import { BrowserWindow, screen } from "electron";
 import { exec } from "child_process";
@@ -7,24 +8,14 @@ class LockerModule {
 
     windows: BrowserWindow[] = [];
 
-    private async _createWindow(htmlPath: string, { x, y, width, height }: Electron.Rectangle) {
-        const window = new BrowserWindow({
-            x, y, width, height,
-            fullscreen: true,
-            webPreferences: {
-                contextIsolation: true
-            },
-        });
-        // window.webContents.openDevTools();
-        await window.loadFile(htmlPath);
-        return window;
-    }
-
     private async _createWindows() {
         const themeName = ThemesManager.readChoosedTheme(); // TODO: use store?
         const themeHtmlPath = ThemesManager.getThemeHtmlPath(themeName);
         for (const display of screen.getAllDisplays()) {
-            this.windows.push(await this._createWindow(themeHtmlPath, display.bounds));
+            this.windows.push(await UIManager.createWindowFromHtmlPath(
+                themeHtmlPath,
+                { ...display.bounds, fullscreen: true }
+            ));
         }
     }
 

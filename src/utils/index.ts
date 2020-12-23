@@ -17,6 +17,11 @@ export function resolveThemePath(themeDirName: string) {
 	return path.resolve(".", "themes", themeDirName);
 }
 
+// TODO: use enum
+export function resolveUiPath(uiName: string) {
+	return path.resolve('.', 'ui', uiName, 'build', 'index.html');
+}
+
 export async function readJsonFromFile<T>(filePath: string): Promise<T> {
 	return JSON.parse(await fs.readFile(filePath, "utf8"));
 }

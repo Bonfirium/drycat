@@ -1,0 +1,44 @@
+.menu {
+  display: flex;
+  flex-grow: 1;
+  height: 100vh;
+
+  .itemContainer {
+    width: 20vw;
+    max-width: unset;
+    background-color: #fff;
+  }
+
+  .parentItem {
+    // max-width: unset;
+    // border-right: 2px solid rgb(255, 148, 148);
+    padding-left: 10%;
+    background-color: #f2f2f2;
+    > div > span {
+      font-weight: 550 !important;
+    }
+  }
+
+  .childItemContainer {
+    background-color: #f2f2f2;
+    .childItem {
+      max-width: unset;
+      // border-right: 2px solid rgb(255, 148, 148);
+      padding-left: 10%;
+
+      &.active > div > span {
+        color: #1976d2;
+        font-weight: 550 !important;
+      }
+    }
+  }
+
+  .panel {
+    width: 80vw;
+    height: 100%;
+    background-color: #fff;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-right: 1%;
+  }
+}

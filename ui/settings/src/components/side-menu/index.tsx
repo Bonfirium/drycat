@@ -1,24 +1,17 @@
 import React, { useState } from 'react';
-import Drawer from '@material-ui/core/Drawer';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Collapse from '@material-ui/core/Collapse';
-// import InboxIcon from '@material-ui/icons/MoveToInbox';
-// import DraftsIcon from '@material-ui/icons/Drafts';
-// import SendIcon from '@material-ui/icons/Send';
-// import ExpandLess from '@material-ui/icons/ExpandLess';
-// import ExpandMore from '@material-ui/icons/ExpandMore';
-// import StarBorder from '@material-ui/icons/StarBorder';
+import { Divider, ListSubheader, List, ListItem, Collapse, ListItemText } from '@material-ui/core';
+import { ExpandLess, ExpandMore } from '@material-ui/icons';
+import styles from './styles.module.scss';
+import classnames from 'classnames';
+
 interface IParent {
   label: string;
   subitems: IChild[];
 }
 
 interface IEParent extends IParent {
-  opened: boolean,
+  opened: boolean;
+  active: boolean;
 }
 
 interface IChild {
@@ -37,6 +30,7 @@ interface IProps {
 const prepareItems = (items: IParent[]) => items.map<IEParent>((item) => ({
   ...item,
   opened: true,
+  active: false,
 }));
 
 const SideMenu: React.FC<IProps> = ({ items: rawItems }) => {
@@ -53,19 +47,26 @@ const SideMenu: React.FC<IProps> = ({ items: rawItems }) => {
     <ListItem
       button
       onClick={() => setPanel(item.element)}
+      className={classnames(styles.childItem, { [styles.active]: panel === item.element })}
     >
-      <ListItemText primary={item.label} />
+      {console.log(panel === item.element)}
+      <ListItemText inset={true} primary={item.label} />
     </ListItem>
   ))
 
   const parseParents = (items: IEParent[]) => items.reduce<React.ReactElement[]>((all, item, i) => {
     all.push(
-      <ListItem button onClick={() => toggleOpened(i)}>
+      <ListItem
+        button
+        onClick={() => toggleOpened(i)}
+        className={styles.parentItem}
+      >
         <ListItemText primary={item.label} />
+        {item.opened ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
     );
     all.push(
-      <Collapse in={item.opened} timeout="auto" unmountOnExit>
+      <Collapse in={item.opened} timeout="auto" unmountOnExit className={styles.childItemContainer}>
         <List component="div" disablePadding>
           {parseChilds(item.subitems)}
         </List>
@@ -75,24 +76,23 @@ const SideMenu: React.FC<IProps> = ({ items: rawItems }) => {
   }, []);
   console.log(panel);
   return (
-    <div>
-      <React.Fragment>
-        {/* <Button onClick={toggleDrawer(true)}>open!</Button> */}
-        <Drawer open={true} variant="permanent">
-          <List
-            component="nav"
-            aria-labelledby="nested-list-subheader"
-            subheader={
-              <ListSubheader component="div" id="nested-list-subheader">
-                DryCat Settings
-              </ListSubheader>}
-          // className={classes.root}
-          >
-            {parseParents(items)}
-          </List>
-        </Drawer>
-      </React.Fragment>
-      {panel}
+    <div className={styles.menu}>
+      <List
+        component="li"
+        aria-labelledby="nested-list-subheader"
+        className={styles.itemContainer}
+        subheader={
+          <ListSubheader component="div" id="nested-list-subheader">
+            DryCat Settings
+          </ListSubheader>
+        }
+      >
+        {parseParents(items)}
+      </List>
+      <Divider variant="fullWidth" orientation="vertical" />
+      <div className={styles.panel}>
+        {panel}
+      </div>
     </div>
   );
 }

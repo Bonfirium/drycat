@@ -10,6 +10,9 @@
       "@utils": [
         "src/utils/index"
       ],
+      "@interfaces": [
+        "src/types/interfaces/index"
+      ],
       "@modules/*": [
         "src/modules/*"
       ],
@@ -21,6 +24,9 @@
       ],
       "@managers/*": [
         "src/managers/*"
+      ],
+      "@uis/*": [
+        "src/ui/*"
       ]
     },
     "plugins": [
