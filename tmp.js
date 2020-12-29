@@ -1,0 +1,1 @@
+window.IPC = { methods: ["GET_THEME_FOLDER_PATH"] }

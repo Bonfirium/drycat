@@ -1,6 +1,7 @@
 import { app } from "electron";
 import AbstractUi from './abstract.ui';
 import { IpcMainEvent, ipcMain } from "electron/main";
+import { generateUiPreloadScript } from "@utils";
 
 interface IEvent {
     name: string
@@ -54,6 +55,11 @@ export default abstract class AbstractUiWithIpc extends AbstractUi {
     private _events: Event[] = [];
 
     async create() {
+        console.log('hey wtf');
+        this.webPreferences = {
+            ...this.webPreferences,
+            preload: await generateUiPreloadScript('./tmp.js', ['GET_THEME_FOLDER_PATH'])
+        };
         console.log('creation', this.channel);
         await super.create();
         ipcMain.on(this.channel, (event, ...args: any[]) => {

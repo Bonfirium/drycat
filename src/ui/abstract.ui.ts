@@ -10,6 +10,11 @@ abstract class AbstractUi {
     url: string | undefined;
     position?: IPosition | undefined;
     _window: BrowserWindow | undefined;
+    webPreferences: Electron.WebPreferences = { nodeIntegration: true };
+
+    constructor() {
+        this.show(); // TODO: unhandled rejections
+    }
 
     async show() {
         if (this._window) this._window.show();
@@ -17,7 +22,7 @@ abstract class AbstractUi {
     }
 
     async create() {
-        this._window = await this._create({ ...this.position, ...this.size, webPreferences: { nodeIntegration: true } });
+        this._window = await this._create({ ...this.position, ...this.size, webPreferences: this.webPreferences });
         this._window.on('closed', () => { this._window = undefined; });
     }
 

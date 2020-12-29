@@ -33,3 +33,12 @@ export async function writeJsonToFile(filePath: string, value: any) {
 export function isProduction() {
 	return process.env.NODE_ENV === 'production';
 }
+
+export async function generateUiPreloadScript(filepath: string, items: string[]) {
+	const fullPath = path.resolve('.', filepath);
+	console.log('fullPath', fullPath)
+	const code = `window.IPC = { methods: ${JSON.stringify(items)} }`;
+	await fs.writeFile(fullPath, code);
+	console.log('heeey!', code);
+	return fullPath;
+}

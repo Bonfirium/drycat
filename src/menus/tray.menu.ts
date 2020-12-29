@@ -1,7 +1,7 @@
 import ThemesManager from "@managers/themes.manager";
 import IconsManager from "@managers/icons.manager";
 import LockerModule from "@modules/locker.module";
-import settingsUi from "@uis/settings.ui";
+import SettingsUi from "@uis/settings.ui";
 import { Tray, Menu, MenuItem, app } from "electron";
 
 
@@ -55,7 +55,7 @@ class TrayMenu {
     createSettings() {
         return new MenuItem({
             label: "Settings",
-            click: () => settingsUi.show(),
+            click: () => new SettingsUi(),
         });
     }
 
