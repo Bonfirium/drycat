@@ -4,39 +4,31 @@ import { IPosition, ISize } from '@interfaces';
 // TODO? rename to ui helper
 class UIManager {
 
-    async createWindowFromHtmlPath(
+    createWindowFromHtmlPath(
         htmlPath: string,
-        // { x, y, width, height,  }: ISize & IPosition,
         options: Electron.BrowserWindowConstructorOptions,
-        additionalOptions: {
-            devTools: boolean,
-        } = {
-            devTools: false,
-        },
+    ) {
+        return this._create(`file://${htmlPath}`, options);
+    }
+
+    createWindowFromUrl(url: string, options: Electron.BrowserWindowConstructorOptions) {
+        return this._create(url, options);
+    }
+
+    private async _create(
+        url: string,
+        options: Electron.BrowserWindowConstructorOptions,
     ) {
         if (!options.webPreferences) options.webPreferences = { contextIsolation: true };
+        if (!options.x && !options.y) options.center = true;
+        options.show = false;
         const window = new BrowserWindow(options);
-        if (additionalOptions.devTools) window.webContents.openDevTools();
-        await window.loadFile(htmlPath);
+        await window.loadURL(url);
+        window.show();
         return window;
     }
 
-    // TODO: if size > screenSize
-    calculateCenterPosition(uiSize: ISize) {
-        const { size: screenSize } = screen.getPrimaryDisplay();
-        return {
-            x: Math.floor((screenSize.width - uiSize.width) / 2),
-            y: Math.floor((screenSize.height - uiSize.height) / 2),
-        };
-    }
-
-    getDefaultPosition(): IPosition {
-        const { size: screenSize } = screen.getPrimaryDisplay();
-        return {
-            x: Math.floor(screenSize.width * 0.25),
-            y: Math.floor(screenSize.height * 0.25),
-        };
-    }
+    
 
 }
 

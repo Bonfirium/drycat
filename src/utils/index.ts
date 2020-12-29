@@ -29,3 +29,7 @@ export async function readJsonFromFile<T>(filePath: string): Promise<T> {
 export async function writeJsonToFile(filePath: string, value: any) {
 	await fs.writeFile(filePath, JSON.stringify(value));
 }
+
+export function isProduction() {
+	return process.env.NODE_ENV === 'production';
+}

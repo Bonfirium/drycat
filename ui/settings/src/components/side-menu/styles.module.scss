@@ -5,13 +5,12 @@
 
   .itemContainer {
     width: 20vw;
+    min-width: 200px;
     max-width: unset;
     background-color: #fff;
   }
 
   .parentItem {
-    // max-width: unset;
-    // border-right: 2px solid rgb(255, 148, 148);
     padding-left: 10%;
     background-color: #f2f2f2;
     > div > span {

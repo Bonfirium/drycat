@@ -50,7 +50,7 @@ const SideMenu: React.FC<IProps> = ({ items: rawItems }) => {
       className={classnames(styles.childItem, { [styles.active]: panel === item.element })}
     >
       {console.log(panel === item.element)}
-      <ListItemText inset={true} primary={item.label} />
+      <ListItemText primary={item.label} />
     </ListItem>
   ))
 
@@ -81,11 +81,6 @@ const SideMenu: React.FC<IProps> = ({ items: rawItems }) => {
         component="li"
         aria-labelledby="nested-list-subheader"
         className={styles.itemContainer}
-        subheader={
-          <ListSubheader component="div" id="nested-list-subheader">
-            DryCat Settings
-          </ListSubheader>
-        }
       >
         {parseParents(items)}
       </List>

@@ -1,32 +1,37 @@
 import UIManager from '@managers/ui.manager';
 import { ISize, IPosition } from '@interfaces';
 import { BrowserWindow } from 'electron';
+import { isProduction } from '@utils';
 
+// TODO: refactor extends
 abstract class AbstractUi {
     abstract path: string;
     abstract size: ISize;
-    private _position: IPosition;
+    url: string | undefined;
+    position?: IPosition | undefined;
     _window: BrowserWindow | undefined;
 
-    get position() {
-        if (!this._position) this._position = UIManager.calculateCenterPosition(this.size);
-        return this._position
-    }
-
-    set position(value: IPosition) {
-        this._position = value;
-    }
-
     async show() {
-        console.log(this.path);
-        if (this._window) this._window.focus();
-        else this._window = await UIManager.createWindowFromHtmlPath(this.path, { ...this.position, ...this.size });
+        if (this._window) this._window.show();
+        else await this.create();
+    }
+
+    async create() {
+        this._window = await this._create({ ...this.position, ...this.size, webPreferences: { nodeIntegration: true } });
+        this._window.on('closed', () => { this._window = undefined; });
+    }
+
+    _create(options: Electron.BrowserWindowConstructorOptions) {
+        return isProduction() || !this.url
+            ? UIManager.createWindowFromHtmlPath(this.path, options)
+            : UIManager.createWindowFromUrl(this.url, options);
     }
 
     async close() {
         if (this._window) this._window.close();
         else throw new Error('window can not be closed');
     }
+
 }
 
 
