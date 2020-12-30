@@ -37,16 +37,15 @@ function reg() {
 // }
 
 // TODO: use constant event
-export function requestable<T extends AbstractUiWithIpc>(eventName?: string) {
-    return function (
+export function requestable<T extends AbstractUiWithIpc | typeof AbstractUiWithIpc>(
         target: T,
         propertyKey: string,
         descriptor: PropertyDescriptor,
-    ) {
-        console.log(target, propertyKey, descriptor);
-        app.on
-    }
+) {
+    console.log(target, propertyKey, descriptor);
+    app.on
 }
+
 
 type Event = { name: string, fn: Function };
 
@@ -62,6 +61,7 @@ export default abstract class AbstractUiWithIpc extends AbstractUi {
         };
         console.log('creation', this.channel);
         await super.create();
+        this._window.webContents.on('ipc-message', (e, c, args) => {});
         ipcMain.on(this.channel, (event, ...args: any[]) => {
             if (event.sender.id !== this._window.webContents.id) return;
             console.log(args);

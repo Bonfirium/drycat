@@ -13,4 +13,15 @@ export default class SettingsUi extends AbstractUiWithIpc {
             else return '/home/false.doc';
         }
     };
+
+    @requestable
+    static chlen() {
+        return 'her';
+    }
+
+    @requestable
+    getThemeFolderPath(flag: boolean): string {
+        if (flag) return '/app/true.md';
+        else return '/home/false.doc';
+    }
 }
