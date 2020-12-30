@@ -10,11 +10,11 @@ export declare class SettingsUi extends AbstractUiWithIpc {
         getThemeFolderPath(flag: boolean): string;
     };
 }
-export declare const METHODS: {
-    getThemeFolderPath(flag: boolean): string;
-};
-export declare const CHANNEL: string;
-export declare type IpcEventData<T extends (...args: any[]) => any> = {
-    request: Parameters<T>;
-    response: ReturnType<T>;
-};
+// export declare const METHODS: {
+//     getThemeFolderPath(flag: boolean): string;
+// };
+// export declare const CHANNEL: string;
+// export declare type IpcEventData<T extends (...args: any[]) => any> = {
+//     request: Parameters<T>;
+//     response: ReturnType<T>;
+// };

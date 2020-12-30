@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { FormLabel, ButtonGroup, FormHelperText, Input, Button, FormControl, InputLabel, TextField, InputBase } from '@material-ui/core';
+import { q } from '../../ipc/settings.ipc';
 
 function FolderPath() {
   const [path] = useState('/home/demid/shit/');

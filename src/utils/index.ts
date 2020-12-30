@@ -37,7 +37,13 @@ export function isProduction() {
 export async function generateUiPreloadScript(filepath: string, items: string[]) {
 	const fullPath = path.resolve('.', filepath);
 	console.log('fullPath', fullPath)
-	const code = `window.IPC = { methods: ${JSON.stringify(items)} }`;
+	const code = `
+window.IPC = { 
+	methods: ${JSON.stringify(items)}
+	send: (method, params: )
+}
+
+`;
 	await fs.writeFile(fullPath, code);
 	console.log('heeey!', code);
 	return fullPath;

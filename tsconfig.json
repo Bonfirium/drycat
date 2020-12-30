@@ -39,5 +39,6 @@
       }
     ]
   },
-  "include": ["./src/**/*"]
+  "include": ["./src/**/*"],
+  "exclude": ["./src/ui/*.ui/view/**/*"]
 }

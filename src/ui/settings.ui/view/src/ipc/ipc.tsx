@@ -1,6 +1,18 @@
 import { IpcRenderer } from 'electron';
+import type { Methods } from '../../../index';
+
+declare interface Window {
+    IPC: Methods;
+}
+declare const window: Window;
+
+
+// TODO: User declarations only
+// TODO: Create all code in preload
+
 
 export const IpcService = new class IpcService {
+    private _methods: Methods;
     private _ipc?: IpcRenderer;
     get ipc() {
         if (!this._ipc) {
@@ -12,6 +24,11 @@ export const IpcService = new class IpcService {
         return this._ipc;
     }
 
+    constructor() {
+        this._methods = window.IPC;
+    }
+
+    call<T extends typeof this>(method: T)
 
     public send<T extends (...args: any[]) => any>(channel: string, event: string, params: Parameters<T>): Promise<ReturnType<T>> {
         return new Promise(resolve => {
