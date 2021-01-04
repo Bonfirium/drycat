@@ -27,6 +27,4 @@ export default class SettingsUi extends AbstractUiWithIpc {
     }
 }
 
-type IIPCMethods<T> = keyof T;
-
-export type Methods = IIPCMethods<typeof SettingsUi.methods>
+export type Methods = typeof SettingsUi.methods;

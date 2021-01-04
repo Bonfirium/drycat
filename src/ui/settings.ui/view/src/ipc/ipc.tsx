@@ -10,7 +10,7 @@ declare const window: Window;
 // TODO: User declarations only
 // TODO: Create all code in preload
 
-
+type a = Pick
 export const IpcService = new class IpcService {
     private _methods: Methods;
     private _ipc?: IpcRenderer;
