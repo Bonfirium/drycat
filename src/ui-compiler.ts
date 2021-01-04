@@ -10,39 +10,41 @@ const project = new Project({
     // Read more: https://ts-morph.com/setup/
 });
 
-function searchForBase(smth: m.Type<ts.Type>) {
+const writeFile = project.createSourceFile('./preload.ts', '', { overwrite: true });
 
-}
-const typeChecker = project.getTypeChecker();
-// add source files
-const writer = new CodeBlockWriter();
-const writeFile = project.createSourceFile('./ui.ts', '', { overwrite: true });
-for (const file of project.addSourceFilesAtPaths('src/ui/*.ui/index.ts')) {
-    for (const class_ of file.getClasses()) {
-        const methods = class_.getMethods();
-        if (methods.length === 0) continue;
-        // TODO: to pascal case
-        writer.writeLine(`interface I${class_.getName()}Methods {`);
-        for (const method of methods) {
-            if (!method.getDecorator('requestable')) continue;
-            const parameters = method.getParameters()
-                .map((parameter) => `${parameter.getName()}: ${parameter.getType().getText()}`)
-                .join(', ');
-            const methodName = method.getName();
-            const returnType = method.getReturnType().getText();
-            const resolvedSignature = typeChecker.getTypeText(method.getType());
-            // const test = method.getReturnType().getSymbol().getDeclarations()[0].getText();
-            // const test = method.getReturnType().getSymbol().getDeclarations()[0].getType().;
-            // console.log('123', test)
-            console.log('resolvedSignature', resolvedSignature)
-            const text = typeChecker.getTypeText(method.getType());
-            // const text = `${methodName}: (${parameters}) => ${returnType};`
-            writer.tab(1).write(text).newLine();
-        }
-        writer.writeLine('}').newLine();
-    }
-}
-console.log(writer.toString());
+// function searchForBase(smth: m.Type<ts.Type>) {
+
+// }
+// const typeChecker = project.getTypeChecker();
+// // add source files
+// const writer = new CodeBlockWriter();
+// const writeFile = project.createSourceFile('./ui.ts', '', { overwrite: true });
+// for (const file of project.addSourceFilesAtPaths('src/ui/*.ui/index.ts')) {
+//     for (const class_ of file.getClasses()) {
+//         const methods = class_.getMethods();
+//         if (methods.length === 0) continue;
+//         // TODO: to pascal case
+//         writer.writeLine(`interface I${class_.getName()}Methods {`);
+//         for (const method of methods) {
+//             if (!method.getDecorator('requestable')) continue;
+//             const parameters = method.getParameters()
+//                 .map((parameter) => `${parameter.getName()}: ${parameter.getType().getText()}`)
+//                 .join(', ');
+//             const methodName = method.getName();
+//             const returnType = method.getReturnType().getText();
+//             const resolvedSignature = typeChecker.getTypeText(method.getType());
+//             // const test = method.getReturnType().getSymbol().getDeclarations()[0].getText();
+//             // const test = method.getReturnType().getSymbol().getDeclarations()[0].getType().;
+//             // console.log('123', test)
+//             console.log('resolvedSignature', resolvedSignature)
+//             const text = typeChecker.getTypeText(method.getType());
+//             // const text = `${methodName}: (${parameters}) => ${returnType};`
+//             writer.tab(1).write(text).newLine();
+//         }
+//         writer.writeLine('}').newLine();
+//     }
+// }
+// console.log(writer.toString());
 // const classes = files[0].getClasses();
 // const methods = classes[0].getMethods();
 // const isRequestable = methods[0].getDecorator('requestable');
