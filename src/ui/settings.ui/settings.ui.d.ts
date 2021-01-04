@@ -1,4 +1,6 @@
+import AbstractUi from '@uis/abstract.ui';
 import AbstractUiWithIpc from '../abstract.ipc';
+
 export declare class SettingsUi extends AbstractUiWithIpc {
     path: any;
     url: string;
@@ -6,7 +8,7 @@ export declare class SettingsUi extends AbstractUiWithIpc {
         width: number;
         height: number;
     };
-    static methods: {
+    methods: {
         getThemeFolderPath(flag: boolean): string;
     };
 }

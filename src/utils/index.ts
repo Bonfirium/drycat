@@ -22,6 +22,10 @@ export function resolveUiPath(uiName: string) {
 	return path.resolve('.', 'ui', uiName, 'build', 'index.html');
 }
 
+export function resolveUiPreload() {
+	return path.resolve('.', 'index.js');
+}
+
 export async function readJsonFromFile<T>(filePath: string): Promise<T> {
 	return JSON.parse(await fs.readFile(filePath, "utf8"));
 }

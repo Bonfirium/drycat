@@ -2,22 +2,37 @@ import AbstractUi from '../abstract.ui';
 import AbstractUiWithIpc, { requestable } from '../abstract.ipc';
 import { resolveUiPath } from '@utils';
 import { IChlen } from './IChlen'
+import { createPreload } from './preload';
 
-export default class SettingsUi extends AbstractUiWithIpc {
+const methods = {
+    chlen(t: IChlen): IChlen {
+        console.log('fuck!!')
+        return { test: true };
+    },
+
+    getThemeFolderPath(flag: boolean): string {
+        if (flag) return '/app/true.md';
+        else return '/home/false.doc';
+    }
+};
+type Function<P = unknown, R = unknown> = (...args: P[]) => R;
+type Promisify<T extends Function> = Function<Parameters<T>, Promise<ReturnType<T>>>
+type aaaa<T extends Record<string, Function>> = {
+    [k in keyof T]: Promisify<T[k]>;
+}
+// type NewMap = {
+//     [T in METHOD]: Promisify<MethodsMap[T]>;
+// }
+export type SettingsUiMethods = aaaa<typeof methods>;
+class SettingsUi extends AbstractUiWithIpc {
     path = resolveUiPath('settings');
     url = 'http://localhost:3000'
     size = { width: 800, height: 600 };
-
-    static methods = {
-        chlen(t: IChlen): IChlen {
-            return { test: true };
-        },
-
-        getThemeFolderPath(flag: boolean): string {
-            if (flag) return '/app/true.md';
-            else return '/home/false.doc';
-        }
-    }
+    methods = methods;
+    
 }
 
-export type Methods = typeof SettingsUi.methods;
+export default new SettingsUi();
+
+createPreload(methods);
+

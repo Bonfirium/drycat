@@ -8,6 +8,7 @@ class UIManager {
         htmlPath: string,
         options: Electron.BrowserWindowConstructorOptions,
     ) {
+        console.log('from html');
         return this._create(`file://${htmlPath}`, options);
     }
 

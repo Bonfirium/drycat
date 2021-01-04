@@ -1,7 +1,7 @@
 import { app } from "electron";
 import AbstractUi from './abstract.ui';
 import { IpcMainEvent, ipcMain } from "electron/main";
-import { generateUiPreloadScript } from "@utils";
+import { resolveUiPreload, generateUiPreloadScript } from "@utils";
 
 interface IEvent {
     name: string
@@ -52,21 +52,30 @@ type Event = { name: string, fn: Function };
 export default abstract class AbstractUiWithIpc extends AbstractUi {
     channel: string = 'test';
     private _events: Event[] = [];
+    abstract methods: Record<string, (...args: any) => any> = {};
 
     async create() {
-        console.log('hey wtf');
+        console.log('hey wtf', require('path').resolve('.', 'index.js'));
         this.webPreferences = {
             ...this.webPreferences,
-            preload: await generateUiPreloadScript('./tmp.js', ['GET_THEME_FOLDER_PATH'])
+            contextIsolation: true,
+            //preload: await generateUiPreloadScript('./tmp.js', ['GET_THEME_FOLDER_PATH'])
+            preload: require('path').resolve('.', 'dist', 'ui', 'settings.ui', 'index.js'),
         };
-        console.log('creation', this.channel);
+        // console.log('creation', this.channel);
         await super.create();
-        this._window.webContents.on('ipc-message', (e, c, args) => {});
-        ipcMain.on(this.channel, (event, ...args: any[]) => {
-            if (event.sender.id !== this._window.webContents.id) return;
-            console.log(args);
+        // TODO: refactor async!
+        this._window.webContents.on('ipc-message', async (_, event, args) => {
+            console.log('MSG!', event, args);
+            if (!this.methods.hasOwnProperty(event)) return;
+            const result = await this.methods[event](args);
+            this._window.webContents.send(event, result);
         });
-        this._window.on('closed', () => ipcMain.removeHandler(this.channel));
+        // ipcMain.on(this.channel, (event, ...args: any[]) => {
+        //     if (event.sender.id !== this._window.webContents.id) return;
+        //     console.log(args);
+        // });
+        // this._window.on('closed', () => ipcMain.removeHandler(this.channel));
     }
 
     handeIpcEvent(event: Electron.Event, channel: string, ...args: any[]) {

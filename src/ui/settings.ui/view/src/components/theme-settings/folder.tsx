@@ -1,12 +1,24 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FormLabel, ButtonGroup, FormHelperText, Input, Button, FormControl, InputLabel, TextField, InputBase } from '@material-ui/core';
-import { q } from '../../ipc/settings.ipc';
+// import { q } from '../../ipc/settings.ipc';
+import IPC from 'ipc/ipc';
 
 function FolderPath() {
-  const [path] = useState('/home/demid/shit/');
-  const [error] = useState();
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event);
+  const [path, setPath] = useState('/home/demid/shit/');
+  const [error, setError] = useState();
+  // useEffect(() => {
+  //   const fn = async () => {
+  //     const result = await IPC.getThemeFolderPath([true]);
+  //     console.log('AAAAAAAAAAAAAa', result);
+  //     setPath(result);
+  //   };
+  //   fn();
+  // }, [])
+  const handleChange = () => {
+    console.log('handle');
+    IPC.getThemeFolderPath([true]).then((result) => {
+      console.log('new path', setPath(result));
+    });
   };
   console.log('render');
   return (
@@ -22,7 +34,7 @@ function FolderPath() {
           InputProps={{
             endAdornment: (<ButtonGroup size="small" variant="contained">
               <Button>Parse</Button>
-              <Button>Change</Button>
+              <Button onClick={handleChange}>Change</Button>
             </ButtonGroup>
             )
           }} />

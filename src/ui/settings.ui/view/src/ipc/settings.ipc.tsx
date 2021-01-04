@@ -1,6 +1,6 @@
 import type SettingsUi from '../../../index';
 import { IpcRenderer } from 'electron';
-import { IpcService } from './ipc';
+// import { IpcService } from './ipc';
 
 // type A<T extends keyof typeof METHODS> = typeof METHODS[T]
 

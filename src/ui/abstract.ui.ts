@@ -13,7 +13,7 @@ abstract class AbstractUi {
     webPreferences: Electron.WebPreferences = { nodeIntegration: true };
 
     constructor() {
-        this.show(); // TODO: unhandled rejections
+        // this.show(); // TODO: unhandled rejections
     }
 
     async show() {
@@ -27,6 +27,7 @@ abstract class AbstractUi {
     }
 
     _create(options: Electron.BrowserWindowConstructorOptions) {
+        console.log(isProduction(), this.url, this);
         return isProduction() || !this.url
             ? UIManager.createWindowFromHtmlPath(this.path, options)
             : UIManager.createWindowFromUrl(this.url, options);

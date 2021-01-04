@@ -2,7 +2,7 @@ import TabMenu from 'components/tab-menu';
 import ThemeSettings, { menu as themeMenu } from 'components/theme-settings';
 import GlobalSettings, { menu as globalMenu } from 'components/global-settings';
 import SideMenu from 'components/side-menu';
-// import IPC from 'ipc/ipc';
+
 
 
 // import TabMenuArea from 'components/tab-menu/area';

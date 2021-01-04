@@ -55,7 +55,7 @@ class TrayMenu {
     createSettings() {
         return new MenuItem({
             label: "Settings",
-            click: () => new SettingsUi(),
+            click: () => SettingsUi.show(),
         });
     }
 
